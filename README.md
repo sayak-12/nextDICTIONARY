@@ -1,2 +1,3 @@
 # nextDICTIONARY
-a dictionary ui ux design using free dictionary api
+a dictionary webapp using free dictionary api
+tried to make it as flawless as possible
