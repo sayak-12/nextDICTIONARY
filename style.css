@@ -21,6 +21,8 @@ html{
     left: 0;
     align-items: center;
     justify-content: center;
+    background-color: rgb(54, 54, 54);
+    z-index: 99;
 }
 i{
     cursor: pointer;
@@ -146,6 +148,7 @@ i{
 }
 .word{
     font-size: 5.5rem;
+    text-transform: capitalize;
 }
 .toolbox{
     display: flex;
@@ -180,7 +183,6 @@ i{
     color: rgba(255, 255, 255, 0.452);
 }
 .meaning{
-    margin-top: 1rem;
     font-size: 2rem;
     display: flex;
     gap: 2rem;
@@ -195,4 +197,54 @@ i{
     padding: 0.4rem 1rem;
     border: 2px solid rgba(255, 255, 255, 0.527);
     border-radius: 1.5rem;
+    cursor: pointer;
+}
+.pos.active{
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border: 2px solid rgb(255, 255, 255);
+}
+.pos1{
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    height: max-content;
+    opacity: 0;
+    pointer-events: none;
+}
+.pos1.active{
+    opacity: 1;
+    pointer-events: all;
+}
+.posholder{
+    height: max-content;
+    width: 100%;
+    background: #d4d4d4;
+
+}
+.poslist{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    gap: 2rem;
+}
+.example{
+    display: flex;
+    gap: 1rem;
+    font-size: 1.6rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.479);
+}
+.eg{
+    color: rgba(255, 255, 255, 0.479);
+}
+.light{
+    background-color: rgb(223, 223, 223);
+    color: black;
+}
+.headline.light h1{
+    color: black;
 }
