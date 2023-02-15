@@ -57,9 +57,11 @@ function datacall(result, word) {
         if (i==1) {
             em.classList.add("active");
         }
-        em.setAttribute("data-index", i)
+        em.setAttribute("data-index", i);
+        em.setAttribute("partsop", item.textContent);
         item.setAttribute("data-index", i)
         document.querySelector(".posholder").appendChild(em);
+        
       item.addEventListener("click", () => {
         if (item.classList.contains("active")) {
           return;
@@ -80,11 +82,46 @@ function datacall(result, word) {
                 } 
         })
         document.querySelector(".posholder").childNodes[index-1].classList.add("active");
+        document.querySelectorAll(".pos1").forEach((item)=>{
+          if (item.classList.contains("active")) {
+            var part = item.getAttribute("partsop");
+            result[0].meanings.forEach((mn)=>{
+              if (mn.partOfSpeech === part) {
+                item.innerHTML = "";
+                mn.definitions.forEach((def)=>{
+                  var el = createelem("div", "meaning");
+                el.innerHTML = "<i class='fa-brands fa-slack'></i>"+def.definition;
+                item.appendChild(el);
+                  var el1 = createelem("div", "example");
+                el1.textContent = def.example;
+                item.appendChild(el1);
+                })
+              }
+            })
+          }
+        })
       })
     });
+    document.querySelectorAll(".pos1").forEach((item)=>{
+      if (item.classList.contains("active")) {
+        var part = item.getAttribute("partsop");
+        result[0].meanings.forEach((mn)=>{
+          if (mn.partOfSpeech === part) {
+            item.innerHTML = "";
+            mn.definitions.forEach((def)=>{
+              var el = createelem("div", "meaning");
+            el.innerHTML = "<i class='fa-brands fa-slack'></i>"+def.definition;
+            item.appendChild(el);
+              var el1 = createelem("div", "example");
+            el1.textContent = def.example;
+            item.appendChild(el1);
+            })
+          }
+        })
+      }
+    })
   }
 }
-
 
 
 
@@ -104,7 +141,10 @@ menu.forEach((item) => {
   });
 });
 
-
+function makelayout(elem, result) {
+  console.log(elem);
+  
+}
 
 
 
@@ -113,6 +153,11 @@ function fetchWord(word) {
   fetch(url).then((res) => res.json().then((result) => datacall(result, word)));
 }
 
+function  createelem(elem, cls) {
+  var el= document.createElement(""+elem);
+  el.className = ""+cls;
+  return el;
+}
 
 const btn =  document.querySelector(".darklight");
 btn.addEventListener("click",()=>{
