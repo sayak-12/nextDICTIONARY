@@ -41,6 +41,23 @@ i{
     right: 10%;
     gap: 2.5rem;
 }
+.history, .bookmarks{
+    position: absolute;
+    display: flex;
+    bottom: 0;
+    right: 0;
+    height: 90vh;
+    left: 25%;
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    background-color: rgb(54, 54, 54);
+
+}
+.history.active, .bookmarks.active{
+    opacity:1;
+    pointer-events: all;
+}
 .headline{
     display: flex;
     position: absolute;
@@ -149,6 +166,9 @@ i{
 .word{
     font-size: 5.5rem;
     text-transform: capitalize;
+}
+.word.inactive{
+    font-size: 4rem;
 }
 .toolbox{
     display: flex;

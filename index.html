@@ -32,18 +32,20 @@
             <div class="account"><i class="fa-solid fa-user"></i></div>
         </div>
     </nav>
+    <div class="history" id="histslide"></div>
+    <div class="bookmarks" id="bookmslide"></div>
     <section class="menu">
-        <div class="menuitem active"><i class="fa-solid fa-house"></i>Home</div>
-        <div class="menuitem"><i class="fa-solid fa-clock-rotate-left"></i>history</div>
-        <div class="menuitem"><i class="fa-solid fa-bookmark"></i>bookmarks</div>
-        <div class="menuitem"><i class="fa-solid fa-fire"></i>Trending</div>
-        <div class="menuitem"><i class="fa-solid fa-headset"></i>support</div>
+        <div class="menuitem active" id="Home"><i class="fa-solid fa-house"></i>Home</div>
+        <div class="menuitem" id="history"><i class="fa-solid fa-clock-rotate-left"></i>history</div>
+        <div class="menuitem" id="bookmarks"><i class="fa-solid fa-bookmark"></i>bookmarks</div>
+        <div class="menuitem" id="trending"><i class="fa-solid fa-fire"></i>Trending</div>
+        <div class="menuitem" id="support"><i class="fa-solid fa-headset"></i>support</div>
     </section>
     <section class="scrollable">
         <h1 class="word">Hello</h1>
         <div class="toolbox">
             <div class="copy"><i class="fa-regular fa-copy"></i></div>
-            <div class="listen"><i class="fa-solid fa-volume-high"></i></div>
+            <div class="listen" data-audio-link="" data-error ="0"><i class="fa-solid fa-volume-high"></i></div>
             <div class="bookm"><i class="fa-solid fa-bookmark"></i></div>
             <div class="font"><i class="fa-solid fa-font"></i></div>
         </div>
@@ -61,7 +63,7 @@
         </div>
 
     </section>
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
 </body>
 
 </html>

@@ -8,8 +8,8 @@ sbar.addEventListener("focusout", () => {
   }
 });
 
-
-
+var bookmarkArray = [];
+var HistoryArray = [];
 
 
 window.onload = () => {
@@ -18,7 +18,7 @@ window.onload = () => {
 
 
 
-
+var fontArray =["'Bebas Neue', cursive;","'Libre Baskerville', serif;", "'Oswald', sans-serif;" ,"'Playfair Display', serif;", "'Poppins', sans-serif;"];
 var searchbtn = document.querySelector(".searchbar i");
 searchbtn.addEventListener("click", () => {
   var stext = document.querySelector(".search").value;
@@ -29,10 +29,28 @@ searchbtn.addEventListener("click", () => {
 
 
 function datacall(result, word) {
+  document.querySelector(".listen").setAttribute("data-audio-url", "");
+HistoryArray.push(word);
+console.log(HistoryArray);
+  result[0].phonetics.forEach((phn)=>{
+    if (phn.audio != "") {
+      console.log(phn.audio);
+      document.querySelector(".listen").setAttribute("data-audio-url", phn.audio);
+    }
+  })
+  
+
   console.log(result);
   if (result.title) {
-    console.log("can't find " + word);
+    document.querySelector(".word").innerHTML = "We're sorry, we couldn't find any reference for the word "+word+".";
+    document.querySelector(".word").classList.add("inactive");
+    document.querySelector(".pos1").innerHTML = "";
+    document.querySelector(".poslist").innerHTML = "";
+
   } else {
+    if (document.querySelector(".word").classList.contains("inactive")) {
+      document.querySelector(".word").classList.remove("inactive");
+    }
     document.querySelector(".pos1").innerHTML = "";
     document.querySelector(".poslist").innerHTML = "";
     document.querySelector(".word").innerHTML = result[0].word;
@@ -141,10 +159,7 @@ menu.forEach((item) => {
   });
 });
 
-function makelayout(elem, result) {
-  console.log(elem);
-  
-}
+
 
 
 
@@ -174,4 +189,58 @@ btn.addEventListener("click",()=>{
 
     }
 
+})
+var fontindex= -1;
+document.querySelector(".copy").addEventListener("click", ()=>{
+  navigator.clipboard.writeText(document.querySelector(".word").innerHTML);
+  document.querySelector(".copy i").setAttribute("class", "fa-solid fa-check");
+  setTimeout(()=>{
+  document.querySelector(".copy i").setAttribute("class", "fa-regular fa-copy");
+
+  },2000)
+})
+document.querySelector(".listen").addEventListener("click", ()=>{
+  var audiosource = document.querySelector(".listen").getAttribute("data-audio-url");
+  var a = new Audio(audiosource);
+  a.play();
+})
+document.querySelector(".font").addEventListener("click", ()=>{
+  fontindex = ((fontindex+1)%5);
+  console.log(fontArray[fontindex]);
+  var allElements = document.querySelectorAll('*');
+  allElements.forEach(el =>{
+    if (el.tagName !="I") {
+    el.setAttribute("style", "font-family:"+fontArray[fontindex]);
+      
+    }
+  })
+})
+document.querySelector(".bookm").addEventListener("click", ()=>{
+  bookmarkArray.push(document.querySelector(".word").innerHTML)
+  document.querySelector(".bookm i").setAttribute("class", "fa-solid fa-check");
+  setTimeout(()=>{
+  document.querySelector(".bookm i").setAttribute("class", "fa-regular fa-bookmark");
+
+  },2000)
+  console.log(bookmarkArray);
+})
+document.querySelectorAll(".menuitem").forEach(item=>{
+  item.addEventListener("click", ()=>{
+    if (document.getElementById("history").classList.contains("active")) {
+      document.getElementById("histslide").classList.add("active");
+    }
+    else{
+      document.getElementById("histslide").classList.remove("active");
+    }
+  })
+})
+document.querySelectorAll(".menuitem").forEach(item=>{
+  item.addEventListener("click", ()=>{
+    if (document.getElementById("bookmarks").classList.contains("active")) {
+      document.getElementById("bookmslide").classList.add("active");
+    }
+    else{
+      document.getElementById("bookmslide").classList.remove("active");
+    }
+  })
 })
