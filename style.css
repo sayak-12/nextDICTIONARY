@@ -54,6 +54,10 @@ i{
     background-color: rgb(54, 54, 54);
 
 }
+.history,.bookmarks{
+    justify-content: center;
+    align-items: center;
+}
 .history.active, .bookmarks.active{
     opacity:1;
     pointer-events: all;
@@ -269,4 +273,78 @@ i{
 }
 .headline.light h1{
     color: black;
+}
+#hwrapper, #bwrapper{
+    display: flex;
+    padding: 3.5rem;
+    flex-direction: column;
+    height: 90%;
+    position: relative;
+    width: 90%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.4), 40%, rgba(255, 255, 255, 0.35), 60%,  rgba(255, 255, 255, 0.28));
+    overflow-y: auto;
+}
+.historylistitem{
+    display: flex;
+    text-transform: uppercase;
+    font-size: 2.3rem;
+    font-weight: 500;
+    align-items: center;
+    padding: 1.2rem;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.267);
+    border-top: 1px solid rgba(255, 255, 255, 0.267);
+    cursor: pointer;
+}
+.historylistitem:hover{
+    background: rgba(255, 255, 255, 0.158);
+}
+#hwrapper h1, #bwrapper h1{
+    font-size: 3rem;
+    margin-bottom: 3rem;
+}
+.historylistitem i{
+    position: absolute;
+    right: 5%;
+}
+.syn{
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+}
+.synitem{
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border: 2px solid rgb(255, 255, 255);
+    display: flex;
+    width: max-content;
+    font-size: 1.2rem;
+    font-weight: light;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.527);
+    border-radius: 1.5rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+.synitem-inactive{
+    background-color: rgba(255, 255, 255, 0.527);
+    color: rgba(0, 0, 0, 0.555);
+    display: flex;
+    width: max-content;
+    font-size: 1.2rem;
+    font-weight: light;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    margin-top: 1rem;
+
+}
+.syn2{
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
 }

@@ -32,12 +32,15 @@ function datacall(result, word) {
   document.querySelector(".listen").setAttribute("data-audio-url", "");
 HistoryArray.push(word);
 console.log(HistoryArray);
+if (!result.title){
   result[0].phonetics.forEach((phn)=>{
     if (phn.audio != "") {
       console.log(phn.audio);
       document.querySelector(".listen").setAttribute("data-audio-url", phn.audio);
     }
   })
+}
+  
   
 
   console.log(result);
@@ -117,6 +120,48 @@ console.log(HistoryArray);
               }
             })
           }
+          result[0].meanings.forEach((mn)=>{
+            if (mn.partOfSpeech === item.getAttribute("partsop")) {
+              var syn = createelem("div", "syn");
+              syn.innerHTML = "<h1>Synonyms</h1>";
+
+              item.appendChild(syn);
+              var syn2 = createelem("div", "syn2");
+        
+          item.appendChild(syn2);
+              if (mn.synonyms.length == 0) {
+                var ss = createelem("div", "synitem-inactive");
+                ss.innerHTML = "No synonyms";
+              syn2.appendChild(ss);
+              }
+              mn.synonyms.forEach((syn1)=>{
+              var ss = createelem("div", "synitem");
+                ss.innerHTML = syn1;
+              syn2.appendChild(ss);
+                
+            })
+            }})
+          result[0].meanings.forEach((mn)=>{
+            if (mn.partOfSpeech === item.getAttribute("partsop")) {
+              var syn = createelem("div", "syn");
+              syn.innerHTML = "<h1>Antonyms</h1>";
+
+              item.appendChild(syn);
+              var syn2 = createelem("div", "syn2");
+        
+          item.appendChild(syn2);
+              if (mn.antonyms.length == 0) {
+                var ss = createelem("div", "synitem-inactive");
+                ss.innerHTML = "No antonyms";
+              syn2.appendChild(ss);
+              }
+              mn.antonyms.forEach((syn1)=>{
+              var ss = createelem("div", "synitem");
+                ss.innerHTML = syn1;
+              syn2.appendChild(ss);
+                
+            })
+            }})
         })
       })
     });
@@ -137,6 +182,47 @@ console.log(HistoryArray);
           }
         })
       }
+      result[0].meanings.forEach((mn)=>{
+        if (mn.partOfSpeech === item.getAttribute("partsop")) {
+          var syn = createelem("div", "syn");
+          syn.innerHTML = "<h1>Synonyms</h1>";
+          item.appendChild(syn);
+          var syn2 = createelem("div", "syn2");
+        
+          item.appendChild(syn2);
+          if (mn.synonyms.length == 0) {
+            var ss = createelem("div", "synitem-inactive");
+            ss.innerHTML = "No synonyms";
+          syn2.appendChild(ss);
+          }
+          mn.synonyms.forEach((syn1)=>{
+          var ss = createelem("div", "synitem");
+            ss.innerHTML = syn1;
+          syn2.appendChild(ss);
+            
+        })
+        }})
+        result[0].meanings.forEach((mn)=>{
+          if (mn.partOfSpeech === item.getAttribute("partsop")) {
+            var syn = createelem("div", "syn");
+            syn.innerHTML = "<h1>Antonyms</h1>";
+
+            item.appendChild(syn);
+            var syn2 = createelem("div", "syn2");
+      
+        item.appendChild(syn2);
+            if (mn.antonyms.length == 0) {
+              var ss = createelem("div", "synitem-inactive");
+              ss.innerHTML = "No antonyms";
+            syn2.appendChild(ss);
+            }
+            mn.antonyms.forEach((syn1)=>{
+            var ss = createelem("div", "synitem");
+              ss.innerHTML = syn1;
+            syn2.appendChild(ss);
+              
+          })
+          }})
     })
   }
 }
@@ -228,6 +314,28 @@ document.querySelectorAll(".menuitem").forEach(item=>{
   item.addEventListener("click", ()=>{
     if (document.getElementById("history").classList.contains("active")) {
       document.getElementById("histslide").classList.add("active");
+      document.getElementById("histslide").innerHTML="<div id='hwrapper'><h1>Search History</h1></div>";
+
+      HistoryArray.forEach((hist)=>{
+        var idh =document.createElement("i");
+        var x= document.createElement("div");
+      x.className="historylistitem";
+      x.textContent = hist;
+      idh.className=("fa-regular fa-copy");
+      idh.setAttribute("title", "copy");
+      x.setAttribute("title", "Search for : "+hist);
+      document.getElementById("hwrapper").appendChild(x);
+      x.appendChild(idh);
+      idh.addEventListener("click",()=>{
+        navigator.clipboard.writeText(x.textContent);
+idh.setAttribute("class", "fa-solid fa-check");
+setTimeout(()=>{
+idh.setAttribute("class", "fa-regular fa-copy");
+
+},700)
+      })
+      })
+      
     }
     else{
       document.getElementById("histslide").classList.remove("active");
@@ -238,6 +346,27 @@ document.querySelectorAll(".menuitem").forEach(item=>{
   item.addEventListener("click", ()=>{
     if (document.getElementById("bookmarks").classList.contains("active")) {
       document.getElementById("bookmslide").classList.add("active");
+      document.getElementById("bookmslide").innerHTML="<div id='bwrapper'><h1>Bookmarked Words</h1></div>";
+
+      bookmarkArray.forEach((hist)=>{
+        var idh =document.createElement("i");
+        var x= document.createElement("div");
+      x.className="historylistitem";
+      x.textContent = hist;
+      idh.className=("fa-regular fa-copy");
+      idh.setAttribute("title", "copy");
+      x.setAttribute("title", "Search for : "+hist)
+      document.getElementById("bwrapper").appendChild(x);
+      x.appendChild(idh);
+        idh.addEventListener("click",()=>{
+          navigator.clipboard.writeText(x.textContent);
+  idh.setAttribute("class", "fa-solid fa-check");
+  setTimeout(()=>{
+  idh.setAttribute("class", "fa-regular fa-copy");
+
+  },700)
+        })
+      })
     }
     else{
       document.getElementById("bookmslide").classList.remove("active");
