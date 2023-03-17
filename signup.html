@@ -101,6 +101,12 @@
                                 placeholder="Password">
                             <label for="floatingPasswordc" class="text-dark">Confirm Password</label>
                         </div>
+                        
+                    </div>
+                    <div class="form-floating">
+                        <input type="file" class="form-control mb-4 inp" id="floatingPic" required
+                            placeholder="Password" accept="image/*">
+                        <label for="floatingPic" class="text-dark" style="font-size: 0.8rem;">Your Profile Picture</label>
                     </div>
 
                     <div class=" mb-3">
@@ -126,16 +132,15 @@
         import { getDatabase, ref as dbref, set } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
         import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-storage.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
-        import "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+
         const firebaseConfig = {
-            apiKey: "AIzaSyCufnDRPEalCJp-9FBowtvnG7Bwd44ltdM",
-            authDomain: "sign-in-database-f0633.firebaseapp.com",
-            databaseURL: "https://sign-in-database-f0633-default-rtdb.firebaseio.com",
-            projectId: "sign-in-database-f0633",
-            storageBucket: "sign-in-database-f0633.appspot.com",
-            messagingSenderId: "40271355892",
-            appId: "1:40271355892:web:9bce087eaa7959ede2e3a1",
-            measurementId: "G-X9Y1TFDVTE"
+            apiKey: "AIzaSyDuinZ2LIH8eXRUFHjdfJEXzm7oVQz7Ous",
+            authDomain: "nextdictionary-47e38.firebaseapp.com",
+            databaseURL: "https://nextdictionary-47e38-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "nextdictionary-47e38",
+            storageBucket: "nextdictionary-47e38.appspot.com",
+            messagingSenderId: "74714748153",
+            appId: "1:74714748153:web:b0d3c1dfe0fe8d71a57e28"
         };
         const app = initializeApp(firebaseConfig);
         const auth = getAuth();
@@ -143,24 +148,28 @@
         const storage = getStorage(app);
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // location.replace("login.html");
+                
                 signOut(auth)
                     .then(() => {
                         alert("succesfully created account!")
+                        location.replace("login.html");
                     })
                     .catch((error) => {
                         alert(error);
                     })
             }
         })
+        var bookmarked =["Hello"];
+        var hist =["Hello"];
         const fr = document.getElementById("formelem");
         fr.addEventListener("submit", (e) => {
             document.querySelector(".submt").classList.add("disabled");
             document.querySelector(".submt").innerHTML = "Signing up...";
             console.log(e);
-            e.preventDefault()
-            const UserName = document.getElementById("floatingName").value;
-            const phone = document.getElementById("floatingPhone").value;
+            e.preventDefault();
+            const fullName = document.getElementById("floatingName").value;
+            const UserName = document.getElementById("floatinguser").value;
+            const phone = document.getElementById("floatingph").value;
             const email = document.getElementById("floatingInput").value;
             var pword = "";
             if (document.getElementById("floatingPassword").value === document.getElementById("floatingPasswordc").value) {
@@ -168,6 +177,11 @@
             }
             else {
                 alert("Password and confirm Password must be same");
+                document.getElementById("floatingPassword").style.border = "2px solid red";
+                document.getElementById("floatingPasswordc").style.border = "2px solid red";
+                return false;
+                document.querySelector(".submt").classList.remove("disabled");
+                    document.querySelector(".submt").innerHTML = "Sign in";
             }
             const file = document.getElementById("floatingPic").files[0];
             createUserWithEmailAndPassword(auth, email, pword)
@@ -175,18 +189,20 @@
                     const user = userCredential.user;
                     const uid = user.uid;
                     console.log(user);
-                    function writeUserData(UserName, email, phone, pword) {
-                        console.log(UserName + email + phone + pword);
+                    function writeUserData(fullName, UserName, email, phone, pword, bookm, hist) {
+                        console.log(fullName + UserName + email + phone + pword);
                         set(dbref(database, 'accounts/' + uid), {
-                            name: UserName,
+                            name: fullName,
+                            username:UserName,
                             email: email,
                             phone: phone,
-                            password: pword
-
+                            password: pword,
+                            bookmarkedArray: bookm,
+                            history:hist
                         });
 
                     }
-                    writeUserData(UserName, email, phone, pword);
+                    writeUserData(fullName, UserName, email, phone, pword, bookmarked, hist);
                     const storageRef = ref(storage, email);
                     uploadBytes(storageRef, file).then((snapshot) => {
                         console.log('Uploaded file ' + snapshot);
@@ -196,12 +212,13 @@
                 .catch((error) => {
                     var errorCode = error.code;
                     var errorMessage = error.message;
-                    alert("Login unSuccessful, error: " + errorMessage);
+                    alert("SignUp unSuccessful, error: " + errorMessage);
                     document.querySelector(".submt").classList.remove("disabled");
                     document.querySelector(".submt").innerHTML = "Sign in";
                 });
         });
 
+    </script>
     </script>
 </body>
 

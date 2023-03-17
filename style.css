@@ -148,6 +148,19 @@ justify-content: center;
 align-items: center;
 
 }
+.account img{
+    aspect-ratio: 1/1;
+    background-color: rgb(250, 235, 215);
+    border-radius: 2rem;
+    padding: 0.4rem;
+    height: 3.7rem;
+    display: flex;
+justify-content: center;
+align-items: center;
+object-fit: cover;
+
+
+}
 .accdetails{
     height: 40vh;
     aspect-ratio: 14/16;

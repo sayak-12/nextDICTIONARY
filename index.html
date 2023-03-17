@@ -57,7 +57,7 @@
         <h1 class="word">Hello</h1>
         <div class="toolbox">
             <div class="copy"><i class="fa-regular fa-copy"></i></div>
-            <div class="listen" data-audio-link="" data-error ="0"><i class="fa-solid fa-volume-high"></i></div>
+            <div class="listen" data-audio-link="" data-error="0"><i class="fa-solid fa-volume-high"></i></div>
             <div class="bookm"><i class="fa-solid fa-bookmark"></i></div>
             <div class="font"><i class="fa-solid fa-font"></i></div>
         </div>
@@ -78,17 +78,94 @@
     <script src="app.js" defer></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-storage.js";
+        import { getDatabase, ref as dbref, onValue ,push} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
         const firebaseConfig = {
-          apiKey: "AIzaSyDtRKhUmaJ_s2p5a4X48s9aiZfKXAmL6ZE",
-          authDomain: "nextdictionary-b2af5.firebaseapp.com",
-          projectId: "nextdictionary-b2af5",
-          storageBucket: "nextdictionary-b2af5.appspot.com",
-          messagingSenderId: "644937686763",
-          appId: "1:644937686763:web:3624a828cda6ae29dde8ae"
+            apiKey: "AIzaSyDuinZ2LIH8eXRUFHjdfJEXzm7oVQz7Ous",
+            authDomain: "nextdictionary-47e38.firebaseapp.com",
+            databaseURL: "https://nextdictionary-47e38-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "nextdictionary-47e38",
+            storageBucket: "nextdictionary-47e38.appspot.com",
+            messagingSenderId: "74714748153",
+            appId: "1:74714748153:web:b0d3c1dfe0fe8d71a57e28"
         };
-      
         const app = initializeApp(firebaseConfig);
-      </script>
+        const auth = getAuth();
+        const storage = getStorage(app);
+        const db = getDatabase(app);
+        var usern="";
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                document.querySelector(".logout").innerHTML = "Log In";
+                document.querySelector(".logout").style.backgroundColor = "rgb(0, 185, 62)";
+                document.querySelector(".gmail").innerHTML = "YourEmailHere@gmail.com";
+                document.querySelector(".handle").innerHTML = "@guest";
+                document.querySelector(".fullname").innerHTML = "Guest User";
+                document.querySelector(".ph").innerHTML = "+1-0000011111";
+                document.querySelector(".userpic").style.backgroundImage = "url(https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png)";
+                document.querySelector(".account").innerHTML = "<i class='fa-solid fa-user'></i><b>guest</b>";
+
+            }
+            else {
+                document.querySelector(".logout").innerHTML = "Log Out";
+                document.querySelector(".logout").style.backgroundColor = "rgb(185, 0, 0)";
+                document.querySelector(".logout").style.color = "white";
+
+                console.log(user);
+                onValue(dbref(db, '/accounts/' + user.uid + '/email'), (entry) => {
+                    console.log(entry);
+                    document.querySelector(".gmail").innerHTML = entry._node.value_;
+                });
+                onValue(dbref(db, 'accounts/' + user.uid + "/phone"), (entry) => {
+                    console.log(entry);
+                    document.querySelector(".ph").innerHTML = entry._node.value_;
+                });
+                onValue(dbref(db, 'accounts/' + user.uid + "/name"), (entry) => {
+                    console.log(entry);
+                    document.querySelector(".fullname").innerHTML = entry._node.value_;
+                });
+                document.querySelector(".searchbar i").onclick=()=>{
+                    if(document.querySelector(".searchbar input").value!=""){
+                        const arrayRef = dbref(db, 'accounts/' + user.uid + "/history");
+                        push(arrayRef, document.querySelector(".searchbar input").value)
+                    }
+                }
+
+                getDownloadURL(ref(storage, user.email))
+                    .then((url) => {
+                        document.querySelector(".account").innerHTML = "<img src='"+url+"' alt=''>";
+                        const img = document.querySelector('.userpic');
+                        img.style.backgroundImage = "url(" + url + ")"
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+                    onValue(dbref(db, 'accounts/' + user.uid + "/username"), (entry) => {
+                    console.log(entry);
+                    document.querySelector(".handle").innerHTML = "@" + entry._node.value_;
+                    document.querySelector(".account").innerHTML += "<b>"+entry._node.value_+"</b>";
+                });
+            }
+        });
+        
+                
+        document.querySelector(".logout").addEventListener("click", () => {
+            if (document.querySelector(".logout").innerHTML === "Log In") {
+                location.replace("login.html")
+            }
+            else {
+                signOut(auth)
+                    .then(() => {
+                        alert("succesfully signed out!")
+                    })
+                    .catch((error) => {
+                        alert(error);
+                    })
+            }
+
+        })
+    </script>
 </body>
 
 </html>
