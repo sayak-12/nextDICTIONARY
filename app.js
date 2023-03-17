@@ -25,14 +25,16 @@ searchbtn.addEventListener("click", () => {
   fetchWord(stext);
 });
 
-
+document.querySelector(".account").addEventListener("click", ()=>{
+  document.querySelector(".accdetails").classList.toggle("active");
+})
 
 
 function datacall(result, word) {
   document.querySelector(".listen").setAttribute("data-audio-url", "");
 HistoryArray.push(word);
 console.log(HistoryArray);
-if (!result.title){
+if (!result.title){'';
   result[0].phonetics.forEach((phn)=>{
     if (phn.audio != "") {
       console.log(phn.audio);

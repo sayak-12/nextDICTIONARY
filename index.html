@@ -29,9 +29,17 @@
         </div>
         <div class="settaccount">
             <div class="darklight"><i class="fa-solid fa-sun"></i></div>
-            <div class="account"><i class="fa-solid fa-user"></i></div>
+            <div class="account" title="Sign up or log in"><i class="fa-solid fa-user"></i><b>guest</b></div>
         </div>
     </nav>
+    <div class="accdetails">
+        <div class="userpic"></div>
+        <div class="fullname">Guest User</div>
+        <div class="handle">@guest</div>
+        <div class="gmail">YourEmailHere@gmail.com</div>
+        <div class="ph">+1-0000011111</div>
+        <button class="logout">Log In</button>
+    </div>
     <div class="history" id="histslide">
         <div id="hwrapper">
             <h1>Search history</h1>
@@ -68,6 +76,19 @@
 
     </section>
     <script src="app.js" defer></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+        const firebaseConfig = {
+          apiKey: "AIzaSyDtRKhUmaJ_s2p5a4X48s9aiZfKXAmL6ZE",
+          authDomain: "nextdictionary-b2af5.firebaseapp.com",
+          projectId: "nextdictionary-b2af5",
+          storageBucket: "nextdictionary-b2af5.appspot.com",
+          messagingSenderId: "644937686763",
+          appId: "1:644937686763:web:3624a828cda6ae29dde8ae"
+        };
+      
+        const app = initializeApp(firebaseConfig);
+      </script>
 </body>
 
 </html>

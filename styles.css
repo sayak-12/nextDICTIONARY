@@ -3,9 +3,15 @@
     margin: 0;
     padding: 0;
     transition: 0.4s;
+    font-family: 'Poppins', sans-serif;
+
     /* overflow: hidden; */
 }
 
+body{
+    background-color: rgb(54, 54, 54);
+    color: white;
+}
 .preloader{
     position: fixed;
     width: 100%;
@@ -17,6 +23,63 @@
     align-items: center;
     overflow: hidden;
 
+}.navbar{
+    display: flex;
+    height: 10vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(54, 54, 54);
+    z-index: 99;
+}
+.navbar::after{
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background-image: linear-gradient(to right, transparent, 40%, rgba(255, 255, 255, 0.5), 60%,  transparent);
+    top: 100%;
+}
+
+.srch input, .srch button{
+    font-size: 0.8rem;
+}
+.srch input{
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 2rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.384);
+}
+.hd{
+    font-size: 1.2rem;
+}
+
+.srch input:focus{
+    position: relative;
+    display: flex;
+    align-items: center;
+    /* border-radius: 2rem; */
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.384);
+}
+.headline{
+    display: flex;
+    /* position: absolute; */
+    height: max-content;
+    width: max-content;
+    align-items: center;
+    /* left: 10%; */
+}
+.headline h1{
+    font-size: 1.8rem;
+    display: flex;
+    font-weight: 600;
+    margin-bottom: 0 !important;
 }
 .preloader img{
     animation: fade 1s ease infinite;
@@ -55,7 +118,7 @@ animation: none;
 }
 form{
     height: max-content;
-    width: 25%;
+    width: 37.5%;
 }
 .navbar{
     height: 10vh;
@@ -64,6 +127,13 @@ form{
 .cen{
     height: 90vh;
     position: relative;
-    top: 5vh;
+    display: flex;
+    top: 10vh;
+    padding: 3% 0;
+}
+.submt{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
 }
 
