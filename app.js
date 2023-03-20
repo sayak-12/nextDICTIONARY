@@ -96,7 +96,7 @@ document.querySelector(".logout").addEventListener("click", () => {
 
 
 
-
+//modular code initialisation done
 
 
 
