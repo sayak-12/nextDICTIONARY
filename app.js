@@ -52,6 +52,13 @@ onAuthStateChanged(auth, (user) => {
                 push(arrayRef, document.querySelector(".searchbar input").value)
             }
         }
+        document.querySelector(".bookm").onclick=()=>{
+            if(document.querySelector(".word").innerText!=""){
+              console.log(document.querySelector(".word").innerText);
+                const arrayRef = dbref(db, 'accounts/' + user.uid + "/bookmarkedArray");
+                push(arrayRef, document.querySelector(".word").innerText)
+            }
+        }
 
         getDownloadURL(ref(storage, user.email))
             .then((url) => {
@@ -492,24 +499,64 @@ document.querySelectorAll(".menuitem").forEach((item) => {
       document.getElementById("bookmslide").innerHTML =
         "<div id='bwrapper'><h1>Bookmarked Words</h1></div>";
 
-      bookmarkArray.forEach((hist) => {
-        var idh = document.createElement("i");
-        var x = document.createElement("div");
-        x.className = "historylistitem";
-        x.textContent = hist;
-        idh.className = "fa-regular fa-copy";
-        idh.setAttribute("title", "copy");
-        x.setAttribute("title", "Search for : " + hist);
-        document.getElementById("bwrapper").appendChild(x);
-        x.appendChild(idh);
-        idh.addEventListener("click", () => {
-          navigator.clipboard.writeText(x.textContent);
-          idh.setAttribute("class", "fa-solid fa-check");
-          setTimeout(() => {
-            idh.setAttribute("class", "fa-regular fa-copy");
-          }, 700);
-        });
-      });
+        onAuthStateChanged(auth, (user) => {
+          if (!user) {
+            bookmarkArray.forEach((hist) => {
+              var idh = document.createElement("i");
+              var x = document.createElement("div");
+              x.className = "historylistitem";
+              x.textContent = hist;
+              idh.className = "fa-regular fa-copy";
+              idh.setAttribute("title", "copy");
+              x.setAttribute("title", "Search for : " + hist);
+              document.getElementById("hwrapper").appendChild(x);
+              x.appendChild(idh);
+              idh.addEventListener("click", () => {
+                navigator.clipboard.writeText(x.textContent);
+                idh.setAttribute("class", "fa-solid fa-check");
+                setTimeout(() => {
+                  idh.setAttribute("class", "fa-regular fa-copy");
+                }, 700);
+              });
+              
+            });
+          }
+       else{
+        console.log("ok");
+                const arrayRef = dbref(db, 'accounts/' + user.uid + "/bookmarkedArray");
+                get(arrayRef).then((snapshot) => {
+                  if (snapshot.exists()) {
+                    console.log(snapshot);
+                    const arrayData1 = snapshot.val();
+                    const arrayData = Object.values(arrayData1);
+                    console.log(arrayData);
+                    arrayData.forEach((hist) => {
+                      var idh = document.createElement("i");
+              var x = document.createElement("div");
+              x.className = "historylistitem";
+              x.textContent = hist;
+              idh.className = "fa-regular fa-copy";
+              idh.setAttribute("title", "copy");
+              x.setAttribute("title", "Search for : " + hist);
+              document.getElementById("bwrapper").appendChild(x);
+              x.appendChild(idh);
+              idh.addEventListener("click", () => {
+                navigator.clipboard.writeText(x.textContent);
+                idh.setAttribute("class", "fa-solid fa-check");
+                setTimeout(() => {
+                  idh.setAttribute("class", "fa-regular fa-copy");
+                }, 700);
+              });
+              
+                    });
+                  }
+                }).catch((error) => {
+                  console.log(error);
+                });
+                
+       }
+      }
+      )
     } else {
       document.getElementById("bookmslide").classList.remove("active");
     }
