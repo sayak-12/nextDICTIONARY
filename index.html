@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-storage.js"></script>
     <title>Next Dictionary: know your language!</title>
 </head>
 
@@ -57,7 +61,7 @@
         <h1 class="word">Hello</h1>
         <div class="toolbox">
             <div class="copy"><i class="fa-regular fa-copy"></i></div>
-            <div class="listen" data-audio-link="" data-error ="0"><i class="fa-solid fa-volume-high"></i></div>
+            <div class="listen" data-audio-link="" data-error="0"><i class="fa-solid fa-volume-high"></i></div>
             <div class="bookm"><i class="fa-solid fa-bookmark"></i></div>
             <div class="font"><i class="fa-solid fa-font"></i></div>
         </div>
@@ -75,20 +79,10 @@
         </div>
 
     </section>
-    <script src="app.js" defer></script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
-        const firebaseConfig = {
-          apiKey: "AIzaSyDtRKhUmaJ_s2p5a4X48s9aiZfKXAmL6ZE",
-          authDomain: "nextdictionary-b2af5.firebaseapp.com",
-          projectId: "nextdictionary-b2af5",
-          storageBucket: "nextdictionary-b2af5.appspot.com",
-          messagingSenderId: "644937686763",
-          appId: "1:644937686763:web:3624a828cda6ae29dde8ae"
-        };
-      
-        const app = initializeApp(firebaseConfig);
-      </script>
+    <script type="module" src="app.js" defer></script>
+    <script type="module" id="scr">
+       
+    </script>
 </body>
 
 </html>

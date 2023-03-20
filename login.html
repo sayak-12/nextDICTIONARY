@@ -104,14 +104,13 @@
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
         import "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
         const firebaseConfig = {
-            apiKey: "AIzaSyCufnDRPEalCJp-9FBowtvnG7Bwd44ltdM",
-            authDomain: "sign-in-database-f0633.firebaseapp.com",
-            databaseURL: "https://sign-in-database-f0633-default-rtdb.firebaseio.com",
-            projectId: "sign-in-database-f0633",
-            storageBucket: "sign-in-database-f0633.appspot.com",
-            messagingSenderId: "40271355892",
-            appId: "1:40271355892:web:9bce087eaa7959ede2e3a1",
-            measurementId: "G-X9Y1TFDVTE"
+            apiKey: "AIzaSyDuinZ2LIH8eXRUFHjdfJEXzm7oVQz7Ous",
+            authDomain: "nextdictionary-47e38.firebaseapp.com",
+            databaseURL: "https://nextdictionary-47e38-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "nextdictionary-47e38",
+            storageBucket: "nextdictionary-47e38.appspot.com",
+            messagingSenderId: "74714748153",
+            appId: "1:74714748153:web:b0d3c1dfe0fe8d71a57e28"
         };
         const app = initializeApp(firebaseConfig);
         const dataBase = getDatabase(app);
@@ -119,7 +118,8 @@
         const auth = getAuth();
         onAuthStateChanged(auth, (user)=>{
             if (user) {
-                location.replace("redirect.html");
+                
+                location.replace("index.html");
             }
         })
         const fr = document.getElementById("formelem");
@@ -133,15 +133,7 @@
             signInWithEmailAndPassword(auth, email, pword)
                 .then((userCredential) => {
                     alert("Login Successful, welcome " + email);
-                    getDownloadURL(ref(storage, email))
-  .then((url) => {
-    
-    const img = document.getElementById('myimg');
-    img.setAttribute('src', url);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+                    
                 })
                 .catch((error) => {
                     var errorCode = error.code;
