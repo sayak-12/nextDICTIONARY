@@ -355,6 +355,7 @@ menu.forEach((item) => {
 });
 
 function fetchWord(word) {
+  
   let url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word;
   fetch(url).then((res) => res.json().then((result) => datacall(result, word)));
 }
