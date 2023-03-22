@@ -1,111 +1,117 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-storage.js";
-import { getDatabase, ref as dbref, onValue ,push, get} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-storage.js";
+import {
+  getDatabase,
+  ref as dbref,
+  onValue,
+  push,
+  get,
+} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
 const firebaseConfig = {
-    apiKey: "AIzaSyDuinZ2LIH8eXRUFHjdfJEXzm7oVQz7Ous",
-    authDomain: "nextdictionary-47e38.firebaseapp.com",
-    databaseURL: "https://nextdictionary-47e38-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "nextdictionary-47e38",
-    storageBucket: "nextdictionary-47e38.appspot.com",
-    messagingSenderId: "74714748153",
-    appId: "1:74714748153:web:b0d3c1dfe0fe8d71a57e28"
+  apiKey: "AIzaSyDuinZ2LIH8eXRUFHjdfJEXzm7oVQz7Ous",
+  authDomain: "nextdictionary-47e38.firebaseapp.com",
+  databaseURL:
+    "https://nextdictionary-47e38-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "nextdictionary-47e38",
+  storageBucket: "nextdictionary-47e38.appspot.com",
+  messagingSenderId: "74714748153",
+  appId: "1:74714748153:web:b0d3c1dfe0fe8d71a57e28",
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const storage = getStorage(app);
 const db = getDatabase(app);
-var usern="";
+var usern = "";
 onAuthStateChanged(auth, (user) => {
-    if (!user) {
-        document.querySelector(".logout").innerHTML = "Log In";
-        document.querySelector(".logout").style.backgroundColor = "rgb(0, 185, 62)";
-        document.querySelector(".gmail").innerHTML = "YourEmailHere@gmail.com";
-        document.querySelector(".handle").innerHTML = "@guest";
-        document.querySelector(".fullname").innerHTML = "Guest User";
-        document.querySelector(".ph").innerHTML = "+1-0000011111";
-        document.querySelector(".userpic").style.backgroundImage = "url(https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png)";
-        document.querySelector(".account").innerHTML = "<i class='fa-solid fa-user'></i><b>guest</b>";
+  if (!user) {
+    document.querySelector(".logout").innerHTML = "Log In";
+    document.querySelector(".logout").style.backgroundColor = "rgb(0, 185, 62)";
+    document.querySelector(".gmail").innerHTML = "YourEmailHere@gmail.com";
+    document.querySelector(".handle").innerHTML = "@guest";
+    document.querySelector(".fullname").innerHTML = "Guest User";
+    document.querySelector(".ph").innerHTML = "+1-0000011111";
+    document.querySelector(".userpic").style.backgroundImage =
+      "url(https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png)";
+    document.querySelector(".account").innerHTML =
+      "<i class='fa-solid fa-user'></i><b>guest</b>";
+  } else {
+    document.querySelector(".logout").innerHTML = "Log Out";
+    document.querySelector(".logout").style.backgroundColor = "rgb(185, 0, 0)";
+    document.querySelector(".logout").style.color = "white";
 
-    }
-    else {
-        document.querySelector(".logout").innerHTML = "Log Out";
-        document.querySelector(".logout").style.backgroundColor = "rgb(185, 0, 0)";
-        document.querySelector(".logout").style.color = "white";
+    console.log(user);
+    onValue(dbref(db, "/accounts/" + user.uid + "/email"), (entry) => {
+      console.log(entry);
+      document.querySelector(".gmail").innerHTML = entry._node.value_;
+    });
+    onValue(dbref(db, "accounts/" + user.uid + "/phone"), (entry) => {
+      console.log(entry);
+      document.querySelector(".ph").innerHTML = entry._node.value_;
+    });
+    onValue(dbref(db, "accounts/" + user.uid + "/name"), (entry) => {
+      console.log(entry);
+      document.querySelector(".fullname").innerHTML = entry._node.value_;
+    });
+    document.querySelector(".searchbar i").onclick = () => {
+      if (document.querySelector(".searchbar input").value != "") {
+        const arrayRef = dbref(db, "accounts/" + user.uid + "/history");
+        push(arrayRef, document.querySelector(".searchbar input").value);
+      }
+    };
+    document.querySelector(".bookm").onclick = () => {
+      if (document.querySelector(".word").innerText != "") {
+        console.log(document.querySelector(".word").innerText);
+        const arrayRef = dbref(db, "accounts/" + user.uid + "/bookmarkedArray");
+        push(arrayRef, document.querySelector(".word").innerText);
+      }
+    };
 
-        console.log(user);
-        onValue(dbref(db, '/accounts/' + user.uid + '/email'), (entry) => {
-            console.log(entry);
-            document.querySelector(".gmail").innerHTML = entry._node.value_;
-        });
-        onValue(dbref(db, 'accounts/' + user.uid + "/phone"), (entry) => {
-            console.log(entry);
-            document.querySelector(".ph").innerHTML = entry._node.value_;
-        });
-        onValue(dbref(db, 'accounts/' + user.uid + "/name"), (entry) => {
-            console.log(entry);
-            document.querySelector(".fullname").innerHTML = entry._node.value_;
-        });
-        document.querySelector(".searchbar i").onclick=()=>{
-            if(document.querySelector(".searchbar input").value!=""){
-                const arrayRef = dbref(db, 'accounts/' + user.uid + "/history");
-                push(arrayRef, document.querySelector(".searchbar input").value)
-            }
-        }
-        document.querySelector(".bookm").onclick=()=>{
-            if(document.querySelector(".word").innerText!=""){
-              console.log(document.querySelector(".word").innerText);
-                const arrayRef = dbref(db, 'accounts/' + user.uid + "/bookmarkedArray");
-                push(arrayRef, document.querySelector(".word").innerText)
-            }
-        }
-
-        getDownloadURL(ref(storage, user.email))
-            .then((url) => {
-                document.querySelector(".account").innerHTML = "<img src='"+url+"' alt=''>";
-                const img = document.querySelector('.userpic');
-                img.style.backgroundImage = "url(" + url + ")"
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-            onValue(dbref(db, 'accounts/' + user.uid + "/username"), (entry) => {
-            console.log(entry);
-            document.querySelector(".handle").innerHTML = "@" + entry._node.value_;
-            document.querySelector(".account").innerHTML += "<b>"+entry._node.value_+"</b>";
-        });
-    }
+    getDownloadURL(ref(storage, user.email))
+      .then((url) => {
+        document.querySelector(".account").innerHTML =
+          "<img src='" + url + "' alt=''>";
+        const img = document.querySelector(".userpic");
+        img.style.backgroundImage = "url(" + url + ")";
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    onValue(dbref(db, "accounts/" + user.uid + "/username"), (entry) => {
+      console.log(entry);
+      document.querySelector(".handle").innerHTML = "@" + entry._node.value_;
+      document.querySelector(".account").innerHTML +=
+        "<b>" + entry._node.value_ + "</b>";
+    });
+  }
 });
 
-        
 document.querySelector(".logout").addEventListener("click", () => {
-    if (document.querySelector(".logout").innerHTML === "Log In") {
-        location.replace("login.html")
-    }
-    else {
-        signOut(auth)
-            .then(() => {
-                alert("succesfully signed out!")
-            })
-            .catch((error) => {
-                alert(error);
-            })
-    }
-
-})
-
-
+  if (document.querySelector(".logout").innerHTML === "Log In") {
+    location.replace("login.html");
+  } else {
+    signOut(auth)
+      .then(() => {
+        alert("succesfully signed out!");
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+});
 
 //modular code initialisation done
 
-
 //test comment
-
-
-
-
-
-
 
 const sbar = document.querySelector(".search");
 sbar.addEventListener("focus", () => {
@@ -362,7 +368,6 @@ menu.forEach((item) => {
 });
 
 function fetchWord(word) {
-  
   let url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word;
   fetch(url).then((res) => res.json().then((result) => datacall(result, word)));
 }
@@ -429,64 +434,88 @@ document.querySelectorAll(".menuitem").forEach((item) => {
       document.getElementById("histslide").classList.add("active");
       document.getElementById("histslide").innerHTML =
         "<div id='hwrapper'><h1>Search History</h1></div>";
-        onAuthStateChanged(auth, (user) => {
-          if (!user) {
-            HistoryArray.forEach((hist) => {
-              var idh = document.createElement("i");
-              var x = document.createElement("div");
-              x.className = "historylistitem";
-              x.textContent = hist;
-              idh.className = "fa-regular fa-copy";
-              idh.setAttribute("title", "copy");
-              x.setAttribute("title", "Search for : " + hist);
-              document.getElementById("hwrapper").appendChild(x);
-              x.appendChild(idh);
-              idh.addEventListener("click", () => {
-                navigator.clipboard.writeText(x.textContent);
-                idh.setAttribute("class", "fa-solid fa-check");
-                setTimeout(() => {
-                  idh.setAttribute("class", "fa-regular fa-copy");
-                }, 700);
-              });
-              
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          HistoryArray.forEach((hist) => {
+            var idh = document.createElement("i");
+            var idh2 = document.createElement("i");
+            var x = document.createElement("div");
+            x.className = "historylistitem";
+            x.textContent = hist;
+            idh.className = "fa-regular fa-copy";
+            idh2.className = "fa-solid fa-trash";
+
+            idh.setAttribute("title", "copy");
+            idh2.setAttribute("title", "delete");
+
+            x.setAttribute("title", "Search for : " + hist);
+            document.getElementById("hwrapper").appendChild(x);
+            x.appendChild(idh);
+            x.appendChild(idh2);
+
+            idh.addEventListener("click", () => {
+              navigator.clipboard.writeText(x.textContent);
+              idh.setAttribute("class", "fa-solid fa-check");
+              setTimeout(() => {
+                idh.setAttribute("class", "fa-regular fa-copy");
+              }, 700);
             });
-          }
-       else{
-                const arrayRef = dbref(db, 'accounts/' + user.uid + "/history");
-                get(arrayRef).then((snapshot) => {
-                  if (snapshot.exists()) {
-                    console.log(snapshot);
-                    const arrayData1 = snapshot.val();
-                    const arrayData = Object.values(arrayData1);
-                    console.log(arrayData);
-                    arrayData.forEach((hist) => {
-                      var idh = document.createElement("i");
-              var x = document.createElement("div");
-              x.className = "historylistitem";
-              x.textContent = hist;
-              idh.className = "fa-regular fa-copy";
-              idh.setAttribute("title", "copy");
-              x.setAttribute("title", "Search for : " + hist);
-              document.getElementById("hwrapper").appendChild(x);
-              x.appendChild(idh);
-              idh.addEventListener("click", () => {
-                navigator.clipboard.writeText(x.textContent);
-                idh.setAttribute("class", "fa-solid fa-check");
-                setTimeout(() => {
-                  idh.setAttribute("class", "fa-regular fa-copy");
-                }, 700);
-              });
-              
-                    });
-                  }
-                }).catch((error) => {
-                  console.log(error);
+            idh2.addEventListener("click", ()=>{
+              x.style.opacity ="0";
+              setTimeout(()=>{
+              x.style.display ="none";
+
+              }, 500)
+            })
+          });
+        } else {
+          const arrayRef = dbref(db, "accounts/" + user.uid + "/history");
+          get(arrayRef)
+            .then((snapshot) => {
+              if (snapshot.exists()) {
+                console.log(snapshot);
+                const arrayData1 = snapshot.val();
+                const arrayData = Object.values(arrayData1);
+                console.log(arrayData);
+                arrayData.forEach((hist) => {
+                  var idh = document.createElement("i");
+                  var idh2 = document.createElement("i");
+                  var x = document.createElement("div");
+                  x.className = "historylistitem";
+                  x.textContent = hist;
+                  idh.className = "fa-regular fa-copy";
+            idh2.className = "fa-solid fa-trash";
+
+                  idh.setAttribute("title", "copy");
+            idh2.setAttribute("title", "delete");
+
+                  x.setAttribute("title", "Search for : " + hist);
+                  document.getElementById("hwrapper").appendChild(x);
+                  x.appendChild(idh);
+                  x.appendChild(idh2);
+
+                  idh.addEventListener("click", () => {
+                    navigator.clipboard.writeText(x.textContent);
+                    idh.setAttribute("class", "fa-solid fa-check");
+                    setTimeout(() => {
+                      idh.setAttribute("class", "fa-regular fa-copy");
+                    }, 700);
+                  });
+                  idh2.addEventListener("click", ()=>{
+                    x.style.opacity ="0";
+                    setTimeout(()=>{
+                    x.style.display ="none";
+
+                    }, 500)
+                  })
                 });
-                
-       }
-      }
-      )
-      
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      });
     } else {
       document.getElementById("histslide").classList.remove("active");
     }
@@ -499,64 +528,86 @@ document.querySelectorAll(".menuitem").forEach((item) => {
       document.getElementById("bookmslide").innerHTML =
         "<div id='bwrapper'><h1>Bookmarked Words</h1></div>";
 
-        onAuthStateChanged(auth, (user) => {
-          if (!user) {
-            bookmarkArray.forEach((hist) => {
-              var idh = document.createElement("i");
-              var x = document.createElement("div");
-              x.className = "historylistitem";
-              x.textContent = hist;
-              idh.className = "fa-regular fa-copy";
-              idh.setAttribute("title", "copy");
-              x.setAttribute("title", "Search for : " + hist);
-              document.getElementById("hwrapper").appendChild(x);
-              x.appendChild(idh);
-              idh.addEventListener("click", () => {
-                navigator.clipboard.writeText(x.textContent);
-                idh.setAttribute("class", "fa-solid fa-check");
-                setTimeout(() => {
-                  idh.setAttribute("class", "fa-regular fa-copy");
-                }, 700);
-              });
-              
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          bookmarkArray.forEach((hist) => {
+            var idh = document.createElement("i");
+            var idh2 = document.createElement("i");
+            var x = document.createElement("div");
+            x.className = "historylistitem";
+            x.textContent = hist;
+            idh.className = "fa-regular fa-copy";
+            idh2.className = "fa-solid fa-trash";
+            idh.setAttribute("title", "copy");
+            idh2.setAttribute("title", "delete");
+            x.setAttribute("title", "Search for : " + hist);
+            document.getElementById("hwrapper").appendChild(x);
+            x.appendChild(idh);
+            x.appendChild(idh2);
+            idh.addEventListener("click", () => {
+              navigator.clipboard.writeText(x.textContent);
+              idh.setAttribute("class", "fa-solid fa-check");
+              setTimeout(() => {
+                idh.setAttribute("class", "fa-regular fa-copy");
+              }, 700);
             });
-          }
-       else{
-        console.log("ok");
-                const arrayRef = dbref(db, 'accounts/' + user.uid + "/bookmarkedArray");
-                get(arrayRef).then((snapshot) => {
-                  if (snapshot.exists()) {
-                    console.log(snapshot);
-                    const arrayData1 = snapshot.val();
-                    const arrayData = Object.values(arrayData1);
-                    console.log(arrayData);
-                    arrayData.forEach((hist) => {
-                      var idh = document.createElement("i");
-              var x = document.createElement("div");
-              x.className = "historylistitem";
-              x.textContent = hist;
-              idh.className = "fa-regular fa-copy";
-              idh.setAttribute("title", "copy");
-              x.setAttribute("title", "Search for : " + hist);
-              document.getElementById("bwrapper").appendChild(x);
-              x.appendChild(idh);
-              idh.addEventListener("click", () => {
-                navigator.clipboard.writeText(x.textContent);
-                idh.setAttribute("class", "fa-solid fa-check");
-                setTimeout(() => {
-                  idh.setAttribute("class", "fa-regular fa-copy");
-                }, 700);
-              });
-              
-                    });
-                  }
-                }).catch((error) => {
-                  console.log(error);
+            idh2.addEventListener("click", ()=>{
+              x.style.opacity ="0";
+              setTimeout(()=>{
+              x.style.display ="none";
+
+              }, 500)
+            })
+          });
+        } else {
+          console.log("ok");
+          const arrayRef = dbref(
+            db,
+            "accounts/" + user.uid + "/bookmarkedArray"
+          );
+          get(arrayRef)
+            .then((snapshot) => {
+              if (snapshot.exists()) {
+                console.log(snapshot);
+                const arrayData1 = snapshot.val();
+                const arrayData = Object.values(arrayData1);
+                console.log(arrayData);
+                arrayData.forEach((hist) => {
+                  var idh = document.createElement("i");
+                  var idh2 = document.createElement("i");
+                  var x = document.createElement("div");
+                  x.className = "historylistitem";
+                  x.textContent = hist;
+                  idh.className = "fa-regular fa-copy";
+                  idh2.className = "fa-solid fa-trash";
+                  idh.setAttribute("title", "copy");
+                  idh2.setAttribute("title", "delete")
+                  x.setAttribute("title", "Search for : " + hist);
+                  document.getElementById("bwrapper").appendChild(x);
+                  x.appendChild(idh);
+                  x.appendChild(idh2);
+                  idh.addEventListener("click", () => {
+                    navigator.clipboard.writeText(x.textContent);
+                    idh.setAttribute("class", "fa-solid fa-check");
+                    setTimeout(() => {
+                      idh.setAttribute("class", "fa-regular fa-copy");
+                    }, 700);
+                  });
+                  idh2.addEventListener("click", ()=>{
+                    x.style.opacity ="0";
+                    
+                    setTimeout(()=>{
+                    x.style.display ="none";
+                    }, 500)
+                  })
                 });
-                
-       }
-      }
-      )
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      });
     } else {
       document.getElementById("bookmslide").classList.remove("active");
     }

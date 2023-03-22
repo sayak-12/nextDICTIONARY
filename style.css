@@ -408,7 +408,11 @@ align-items: center;
     font-size: 3rem;
     margin-bottom: 3rem;
 }
-.historylistitem i{
+.historylistitem i:nth-child(1){
+    position: absolute;
+    right: 10%;
+}
+.historylistitem i:nth-child(2){
     position: absolute;
     right: 5%;
 }
