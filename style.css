@@ -421,6 +421,9 @@ align-items: center;
     font-weight: 600;
     margin-top: 1.5rem;
 }
+.scrollable.invisible{
+    display: none;
+}
 .synitem{
     background-color: rgb(255, 255, 255);
     color: black;

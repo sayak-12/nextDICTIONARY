@@ -432,6 +432,9 @@ document.querySelectorAll(".menuitem").forEach((item) => {
   item.addEventListener("click", () => {
     if (document.getElementById("history").classList.contains("active")) {
       document.getElementById("histslide").classList.add("active");
+      if (!document.querySelector(".scrollable").classList.contains("invisible")) {
+      document.querySelector(".scrollable").classList.add("invisible");  
+      }
       document.getElementById("histslide").innerHTML =
         "<div id='hwrapper'><h1>Search History</h1></div>";
       onAuthStateChanged(auth, (user) => {
@@ -518,6 +521,10 @@ document.querySelectorAll(".menuitem").forEach((item) => {
       });
     } else {
       document.getElementById("histslide").classList.remove("active");
+      if (document.querySelector(".scrollable").classList.contains("invisible")) {
+        document.querySelector(".scrollable").classList.remove("invisible");  
+        }
+
     }
   });
 });
@@ -525,6 +532,9 @@ document.querySelectorAll(".menuitem").forEach((item) => {
   item.addEventListener("click", () => {
     if (document.getElementById("bookmarks").classList.contains("active")) {
       document.getElementById("bookmslide").classList.add("active");
+      if (!document.querySelector(".scrollable").classList.contains("invisible")) {
+        document.querySelector(".scrollable").classList.add("invisible");  
+        }
       document.getElementById("bookmslide").innerHTML =
         "<div id='bwrapper'><h1>Bookmarked Words</h1></div>";
 
@@ -595,7 +605,7 @@ document.querySelectorAll(".menuitem").forEach((item) => {
                   });
                   idh2.addEventListener("click", ()=>{
                     x.style.opacity ="0";
-                    
+
                     setTimeout(()=>{
                     x.style.display ="none";
                     }, 500)
@@ -610,6 +620,7 @@ document.querySelectorAll(".menuitem").forEach((item) => {
       });
     } else {
       document.getElementById("bookmslide").classList.remove("active");
+      
     }
   });
 });
