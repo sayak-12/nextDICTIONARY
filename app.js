@@ -13,9 +13,9 @@ import {
 import {
   getDatabase,
   ref as dbref,
-  onValue,
+  onValue, child,
   push,
-  get,
+  get, set, update
 } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
 const firebaseConfig = {
   apiKey: "AIzaSyDuinZ2LIH8eXRUFHjdfJEXzm7oVQz7Ous",
@@ -508,8 +508,16 @@ document.querySelectorAll(".menuitem").forEach((item) => {
                     x.style.opacity ="0";
                     setTimeout(()=>{
                     x.style.display ="none";
-
                     }, 500)
+                    const indexToDelete = arrayData.indexOf(x.textContent);
+                    if (indexToDelete !== -1) {
+                      arrayData.splice(indexToDelete, 1);
+                    }
+                    const obj = arrayData.reduce((acc, value, index) => {
+                      acc[index] = value;
+                      return acc;
+                    }, {});
+                    set(arrayRef,obj);
                   })
                 });
               }
@@ -565,8 +573,8 @@ document.querySelectorAll(".menuitem").forEach((item) => {
               x.style.opacity ="0";
               setTimeout(()=>{
               x.style.display ="none";
-
               }, 500)
+
             })
           });
         } else {
@@ -609,6 +617,15 @@ document.querySelectorAll(".menuitem").forEach((item) => {
                     setTimeout(()=>{
                     x.style.display ="none";
                     }, 500)
+                    const indexToDelete = arrayData.indexOf(x.textContent);
+                    if (indexToDelete !== -1) {
+                      arrayData.splice(indexToDelete, 1);
+                    }
+                    const obj = arrayData.reduce((acc, value, index) => {
+                      acc[index] = value;
+                      return acc;
+                    }, {});
+                    set(arrayRef,obj);
                   })
                 });
               }
