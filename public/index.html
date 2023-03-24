@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:wght@400;700&family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300&family=Quicksand:wght@300;400;500;600&family=Sofia+Sans:wght@300;400;500;600;700&family=Source+Serif+Pro:wght@300;400;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-storage.js"></script>
+    <title>Next Dictionary: know your language!</title>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="headline">
+            <h1>Next</h1>
+            <h1>Dictionary</h1>
+        </div>
+        <div class="searchbar">
+            <p class="placeholder">Enter word to search</p><input type="text" name="" id="" class="search"><i
+                class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <div class="settaccount">
+            <div class="darklight"><i class="fa-solid fa-sun"></i></div>
+            <div class="account" title="Sign up or log in"><i class="fa-solid fa-user"></i><b>guest</b></div>
+        </div>
+    </nav>
+    <div class="accdetails">
+        <div class="userpic"></div>
+        <div class="fullname">Guest User</div>
+        <div class="handle">@guest</div>
+        <div class="gmail">YourEmailHere@gmail.com</div>
+        <div class="ph">+1-0000011111</div>
+        <button class="logout">Log In</button>
+    </div>
+    <div class="history" id="histslide">
+        <div id="hwrapper">
+            <h1>Search history</h1>
+        </div>
+    </div>
+    <div class="bookmarks" id="bookmslide"></div>
+    <section class="menu">
+        <div class="menuitem active" id="Home"><i class="fa-solid fa-house"></i>Home</div>
+        <div class="menuitem" id="history"><i class="fa-solid fa-clock-rotate-left"></i>history</div>
+        <div class="menuitem" id="bookmarks"><i class="fa-solid fa-bookmark"></i>bookmarks</div>
+        <div class="menuitem" id="trending"><i class="fa-solid fa-fire"></i>Trending</div>
+    </section>
+    <section class="scrollable">
+        <h1 class="word">Hello</h1>
+        <div class="toolbox">
+            <div class="copy"><i class="fa-regular fa-copy"></i></div>
+            <div class="listen" data-audio-link="" data-error="0"><i class="fa-solid fa-volume-high"></i></div>
+            <div class="bookm"><i class="fa-solid fa-bookmark"></i></div>
+            <div class="font"><i class="fa-solid fa-font"></i></div>
+        </div>
+        <div class="poslist">
+            <div class="pos">Noun</div>
+            <div class="pos">Verb</div>
+            <div class="pos">interjection</div>
+        </div>
+        <div class="posholder">
+            <div class="pos1">
+                <div class="meaning"></div>
+                <div class="example"></div>
+            </div>
+        </div>
+        </div>
+
+    </section>
+    <script type="module" src="app.js" defer></script>
+</body>
+
+</html>

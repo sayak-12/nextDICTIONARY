@@ -1,0 +1,462 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    transition: 0.3s all;
+    box-sizing: border-box;
+}
+body{
+    background-color: rgb(54, 54, 54);
+}
+html{
+    font-size: 62.5%;
+}
+.nav{
+    display: flex;
+    height: 10vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(54, 54, 54);
+    z-index: 99;
+}
+i{
+    cursor: pointer;
+}
+.nav::after{
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background-image: linear-gradient(to right, transparent, 40%, rgba(255, 255, 255, 0.5), 60%,  transparent);
+    top: 100%;
+}
+.settaccount{
+    display: flex;
+    position: absolute;
+    right: 10%;
+    gap: 2.5rem;
+}
+.history, .bookmarks{
+    position: absolute;
+    display: flex;
+    bottom: 0;
+    right: 0;
+    height: 90vh;
+    left: 25%;
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    background-color: rgb(54, 54, 54);
+
+}
+.history,.bookmarks{
+    justify-content: center;
+    align-items: center;
+}
+.history.active, .bookmarks.active{
+    opacity:1;
+    pointer-events: all;
+}
+.headline{
+    display: flex;
+    position: absolute;
+    height: max-content;
+    width: max-content;
+    left: 10%;
+}
+.headline h1{
+    font-size: 3rem;
+    display: flex;
+}
+.search{
+    height: 3rem;
+    width: 100%;
+    border-radius: 1.5rem;
+    border: none;
+    outline: none;
+    padding: 1rem;
+    background-color: transparent;
+}
+.searchbar{
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 25rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.623);
+}
+.searchbar i{
+    position: absolute;
+    right: 5%;
+    height: 3rem;
+    width: 3rem;
+    /* border: 2px solid white; */
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(230, 230, 230, 0.664);
+    font-size: 1.3rem;
+    border-radius: 50%;
+}
+.placeholder{
+    opacity: 1;
+    display: flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    position: absolute;
+    left: 5%;
+    color: rgba(255, 255, 255, 0.664);
+    user-select: none;
+    pointer-events: none;
+}
+.settaccount div i{
+    font-size: 1.6rem;
+}
+.placeholder.invisible{
+    opacity: 0;
+}
+.account{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 0rem 1.4rem 0 0;
+    border: 1px solid rgba(255, 255, 255, 0.521);
+    border-radius: 2rem;
+    position: relative;
+    cursor: pointer;
+}
+.account b{
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    user-select: none;
+}
+.account i{
+    aspect-ratio: 1/1;
+    background-color: rgba(250, 235, 215, 0.295);
+    border-radius: 2rem;
+    padding: 0.4rem;
+    height: 3.7rem;
+    display: flex;
+justify-content: center;
+align-items: center;
+
+}
+.account img{
+    aspect-ratio: 1/1;
+    background-color: rgb(250, 235, 215);
+    border-radius: 2rem;
+    padding: 0.4rem;
+    height: 3.7rem;
+    display: flex;
+justify-content: center;
+align-items: center;
+object-fit: cover;
+
+
+}
+.accdetails{
+    height: 40vh;
+    aspect-ratio: 14/16;
+    background: #d4d4d4;
+    z-index: 100;
+    position: fixed;
+    right: 10%;
+    top: 12vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3rem;
+    opacity: 0;
+    pointer-events: none;
+}
+.accdetails.active{
+    opacity: 1;
+    pointer-events: all;
+}
+.accdetails div{
+    color: black;
+    font-size: 1.2rem;
+}
+.accdetails button{
+    background-color: rgb(0, 185, 62);
+    font-weight: 600;
+    border-radius: inherit;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    color: black;
+    width: 90%;
+    padding: 1rem 0;
+    position: relative;
+    bottom: -3%;
+    cursor: pointer;
+    
+}
+.userpic{
+    background-image: url(https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png);
+    height: 4rem;
+    margin-bottom: 1rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center center;
+    border: 2px solid grey;
+    box-shadow: 0 0 0 5px #d4d4d4, 0 0 0 8px #0c3ee2;
+}
+.account img{
+    aspect-ratio: 1/1;
+    border: 1px solid rgba(255, 255, 255, 0.308);
+    border-radius: 2rem;
+    padding: 0.4rem;
+    height: 3.7rem;
+    display: flex;
+justify-content: center;
+align-items: center;
+
+}
+.darklight{
+    display: flex;
+    align-items: center;
+}
+.menu{
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 90vh;
+    width: 25%;
+    padding-top: 3rem;
+    flex-direction: column;
+    align-items: center;
+}
+.menuitem{
+    width: 90%;
+    padding: 2rem 0 2rem 2rem;
+    border-radius: 3.8rem;
+    margin: 1rem 0 1rem 1rem;
+    display: flex;
+    gap: 1.5rem;
+    font-size: 1.2rem;
+    align-items: center;
+    padding-left: 5rem;
+    text-transform: capitalize;
+    cursor: pointer;
+    background: transparent;
+
+}
+.menuitem.active{
+    background: linear-gradient(to right, rgb(117, 31, 255), rgb(54, 54, 54));
+}
+.menuitem i{
+    font-size: 1.8rem;
+    height: 1.8rem;
+    width: 1.8rem;
+}
+.scrollable{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 90vh;
+    width: 75%;
+    padding: 3%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.word{
+    font-size: 5.5rem;
+    text-transform: capitalize;
+}
+.word.inactive{
+    font-size: 4rem;
+}
+.toolbox{
+    display: flex;
+    gap: 2rem;
+
+}
+.toolbox div{
+    padding: 0.8rem;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.466);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    cursor: pointer;
+}
+.toolbox div:hover{
+    background-color: white;
+    color: black;
+}
+.toolbox div:hover i{
+    
+    color: black;
+}
+.toolbox div i{
+    font-size: 1.5rem;
+    height: 2rem;
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.452);
+}
+.meaning{
+    font-size: 2rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+.pos{
+    display: flex;
+    width: max-content;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.527);
+    font-weight: light;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.527);
+    border-radius: 1.5rem;
+    cursor: pointer;
+}
+.pos.active{
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border: 2px solid rgb(255, 255, 255);
+}
+.pos1{
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    height: max-content;
+    opacity: 0;
+    padding: 1rem 0;
+    pointer-events: none;
+}
+.pos1.active{
+    opacity: 1;
+    pointer-events: all;
+}
+.posholder{
+    height: max-content;
+    width: 100%;
+    background: #d4d4d4;
+    position: relative;
+}
+.poslist{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    gap: 2rem;
+}
+.example{
+    display: flex;
+    gap: 1rem;
+    font-size: 1.6rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.479);
+}
+.eg{
+    color: rgba(255, 255, 255, 0.479);
+}
+.light{
+    background-color: rgb(223, 223, 223);
+    color: black;
+}
+.headline.light h1{
+    color: black;
+}
+#hwrapper, #bwrapper{
+    display: flex;
+    padding: 3.5rem;
+    flex-direction: column;
+    height: 90%;
+    position: relative;
+    width: 90%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.4), 40%, rgba(255, 255, 255, 0.35), 60%,  rgba(255, 255, 255, 0.28));
+    overflow-y: auto;
+}
+.historylistitem{
+    display: flex;
+    text-transform: uppercase;
+    font-size: 2.3rem;
+    font-weight: 500;
+    align-items: center;
+    padding: 1.2rem;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.267);
+    border-top: 1px solid rgba(255, 255, 255, 0.267);
+    cursor: pointer;
+}
+.historylistitem:hover{
+    background: rgba(255, 255, 255, 0.158);
+}
+#hwrapper h1, #bwrapper h1{
+    font-size: 3rem;
+    margin-bottom: 3rem;
+}
+.historylistitem i:nth-child(1){
+    position: absolute;
+    right: 10%;
+}
+.historylistitem i:nth-child(2){
+    position: absolute;
+    right: 5%;
+}
+.syn{
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+}
+.scrollable.invisible{
+    display: none;
+}
+.synitem{
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border: 2px solid rgb(255, 255, 255);
+    display: flex;
+    width: max-content;
+    font-size: 1.2rem;
+    font-weight: light;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.527);
+    border-radius: 1.5rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+.synitem-inactive{
+    background-color: rgba(255, 255, 255, 0.527);
+    color: rgba(0, 0, 0, 0.555);
+    display: flex;
+    width: max-content;
+    font-size: 1.2rem;
+    font-weight: light;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    margin-top: 1rem;
+
+}
+.syn2{
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+}
