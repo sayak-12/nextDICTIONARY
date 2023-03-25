@@ -51,7 +51,7 @@ i{
     z-index: 5;
     opacity: 0;
     pointer-events: none;
-    background-color: rgb(54, 54, 54);
+    background-color: rgba(54, 54, 54, 0);
 
 }
 .history,.bookmarks{
@@ -459,4 +459,52 @@ align-items: center;
     margin-top: 1rem;
     width: 100%;
     flex-wrap: wrap;
+}
+body::-webkit-scrollbar{
+    width: 10px;
+    position: absolute;
+    opacity: 0;
+    border-radius: 5px;
+}
+body::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.158), rgba(255, 255, 255, 0.247));
+}
+#hwrapper::-webkit-scrollbar{
+    width: 10px;
+    position: absolute;
+    opacity: 0;
+    border-radius: 5px;
+}
+#hwrapper::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.158), rgba(255, 255, 255, 0.247));
+}
+#bwrapper::-webkit-scrollbar{
+    width: 10px;
+    position: absolute;
+    opacity: 0;
+    border-radius: 5px;
+}
+#bwrapper::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.158), rgba(255, 255, 255, 0.247));
+}
+/* #hwrapper::-webkit-scrollbar-thumb{
+    
+    -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.5); 
+} */
+
+/* mediaqueries */
+
+@media screen and (max-width:1024px) {
+    html{
+        font-size: 57%;
+    }
+    .menu{
+        width: 35%;
+    }
+    .scrollable{
+        width: 65%;
+    }
 }
