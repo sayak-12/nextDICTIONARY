@@ -44,22 +44,27 @@ onAuthStateChanged(auth, (user) => {
       "url(https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png)";
     document.querySelector(".account").innerHTML =
       "<i class='fa-solid fa-user'></i><b>guest</b>";
-  } else {
+      if ((window.innerWidth)<=540) {
+        document.querySelector(".account").childNodes.forEach((item)=>{
+          if(item.nodeName === "B"){
+            console.log(item.nodeName + " item deleted");
+            document.querySelector(".account").removeChild(item);
+          };
+        })
+      }
+  } 
+  else {
     document.querySelector(".logout").innerHTML = "Log Out";
     document.querySelector(".logout").style.backgroundColor = "rgb(185, 0, 0)";
     document.querySelector(".logout").style.color = "white";
 
-    console.log(user);
     onValue(dbref(db, "/accounts/" + user.uid + "/email"), (entry) => {
-      console.log(entry);
       document.querySelector(".gmail").innerHTML = entry._node.value_;
     });
     onValue(dbref(db, "accounts/" + user.uid + "/phone"), (entry) => {
-      console.log(entry);
       document.querySelector(".ph").innerHTML = entry._node.value_;
     });
     onValue(dbref(db, "accounts/" + user.uid + "/name"), (entry) => {
-      console.log(entry);
       document.querySelector(".fullname").innerHTML = entry._node.value_;
     });
     document.querySelector(".searchbar i").onclick = () => {
@@ -70,7 +75,6 @@ onAuthStateChanged(auth, (user) => {
     };
     document.querySelector(".bookm").onclick = () => {
       if (document.querySelector(".word").innerText != "") {
-        console.log(document.querySelector(".word").innerText);
         const arrayRef = dbref(db, "accounts/" + user.uid + "/bookmarkedArray");
         push(arrayRef, document.querySelector(".word").innerText);
       }
@@ -87,10 +91,17 @@ onAuthStateChanged(auth, (user) => {
         console.log(error);
       });
     onValue(dbref(db, "accounts/" + user.uid + "/username"), (entry) => {
-      console.log(entry);
       document.querySelector(".handle").innerHTML = "@" + entry._node.value_;
       document.querySelector(".account").innerHTML +=
         "<b>" + entry._node.value_ + "</b>";
+        if ((window.innerWidth)<=540) {
+          document.querySelector(".account").childNodes.forEach((item)=>{
+            if(item.nodeName === "B"){
+              console.log(item.nodeName + " item deleted");
+              document.querySelector(".account").removeChild(item);
+            };
+          })
+        }
     });
   }
 });
@@ -112,7 +123,20 @@ document.querySelector(".logout").addEventListener("click", () => {
 //modular code initialisation done
 
 //test comment
+window.addEventListener("load", ()=>{
+  if ((window.innerWidth)<=540) {
+    document.querySelectorAll(".menuitem").forEach((item)=>{
+      const childnod = item.childNodes;
+      childnod.forEach((chnod)=>{
+        if (chnod.nodeType === 3) {
+          chnod.nodeValue = "";
 
+        }
+      })
+    })
+    
+  }
+})
 const sbar = document.querySelector(".search");
 sbar.addEventListener("focus", () => {
   document.querySelector(".placeholder").classList.add("invisible");
@@ -150,12 +174,10 @@ document.querySelector(".account").addEventListener("click", () => {
 function datacall(result, word) {
   document.querySelector(".listen").setAttribute("data-audio-url", "");
   HistoryArray.push(word);
-  console.log(HistoryArray);
   if (!result.title) {
     ("");
     result[0].phonetics.forEach((phn) => {
       if (phn.audio != "") {
-        console.log(phn.audio);
         document
           .querySelector(".listen")
           .setAttribute("data-audio-url", phn.audio);
@@ -163,7 +185,6 @@ function datacall(result, word) {
     });
   }
 
-  console.log(result);
   if (result.title) {
     document.querySelector(".word").innerHTML =
       "We're sorry, we couldn't find any reference for the word " + word + ".";
@@ -410,7 +431,6 @@ document.querySelector(".listen").addEventListener("click", () => {
 });
 document.querySelector(".font").addEventListener("click", () => {
   fontindex = (fontindex + 1) % 5;
-  console.log(fontArray[fontindex]);
   var allElements = document.querySelectorAll("*");
   allElements.forEach((el) => {
     if (el.tagName != "I") {
@@ -426,7 +446,6 @@ document.querySelector(".bookm").addEventListener("click", () => {
       .querySelector(".bookm i")
       .setAttribute("class", "fa-regular fa-bookmark");
   }, 2000);
-  console.log(bookmarkArray);
 });
 document.querySelectorAll(".menuitem").forEach((item) => {
   item.addEventListener("click", () => {
@@ -476,10 +495,8 @@ document.querySelectorAll(".menuitem").forEach((item) => {
           get(arrayRef)
             .then((snapshot) => {
               if (snapshot.exists()) {
-                console.log(snapshot);
                 const arrayData1 = snapshot.val();
                 const arrayData = Object.values(arrayData1);
-                console.log(arrayData);
                 arrayData.forEach((hist) => {
                   var idh = document.createElement("i");
                   var idh2 = document.createElement("i");
@@ -578,7 +595,6 @@ document.querySelectorAll(".menuitem").forEach((item) => {
             })
           });
         } else {
-          console.log("ok");
           const arrayRef = dbref(
             db,
             "accounts/" + user.uid + "/bookmarkedArray"
@@ -586,10 +602,8 @@ document.querySelectorAll(".menuitem").forEach((item) => {
           get(arrayRef)
             .then((snapshot) => {
               if (snapshot.exists()) {
-                console.log(snapshot);
                 const arrayData1 = snapshot.val();
                 const arrayData = Object.values(arrayData1);
-                console.log(arrayData);
                 arrayData.forEach((hist) => {
                   var idh = document.createElement("i");
                   var idh2 = document.createElement("i");

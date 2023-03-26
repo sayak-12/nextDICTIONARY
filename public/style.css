@@ -553,6 +553,11 @@ body::-webkit-scrollbar-thumb{
         flex-direction: column;
         align-items: center;
     }
+    .poslist{
+        width: 80%;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
     .menu{
         display: flex;
     position: fixed;
@@ -611,5 +616,38 @@ body::-webkit-scrollbar-thumb{
     }
     #hwrapper, #bwrapper{
         width: 100%;
+    }
+}
+@media screen and (max-width:540px) {
+    .account{
+        border: none;
+        padding: 0;
+    }
+    .word{
+        font-size: 3.5rem;
+    }
+    .syn h1{
+        font-size: 2.4rem;
+    }
+    .headline h1{
+        font-size: 2.5rem;
+    }
+    .settaccount {
+        gap: 1rem;
+    }
+    .account img{
+        width: 3rem;
+        height: 3rem;
+    }
+}
+@media screen and (max-width:480px){
+    .historylistitem i:nth-child(1){
+        position: absolute;
+        right: 25%;
+    }
+}
+@media screen and (max-width:310px){
+    html{
+        font-size: 50%;
     }
 }
