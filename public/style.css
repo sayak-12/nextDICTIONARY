@@ -201,6 +201,77 @@ object-fit: cover;
     cursor: pointer;
     
 }
+.menu.light{
+    background: rgb(223, 223, 223);
+}
+.menu.light .menuitem i, .menu.light .menuitem {
+    color: rgb(54, 54, 54);
+}
+.menu.light .menuitem.active {
+    color: white;
+    background: linear-gradient(to right, rgb(117, 31, 255),  rgb(223,223,223));
+
+}
+
+.menu.light .menuitem.active i{
+    color: white;
+}
+.light .account{
+    border: 1px solid rgb(54, 54, 54);
+}
+.light .account, .light .account b{
+    color: rgb(54, 54, 54);
+}
+.light .accdetails{
+    background-color: rgb(158, 158, 158);
+}
+.nav.light .searchbar p, .nav.light .searchbar i, .nav.light .searchbar input{
+    color: rgb(54, 54, 54);
+    
+}
+.nav.light::after{
+    background-image: linear-gradient(to right, transparent, 40%, rgba(58, 58, 58, 0.5), 60%,  transparent);
+
+}
+.light #hwrapper, .light #bwrapper{
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.4), 40%, rgba(0, 0, 0, 0.35), 60%,  rgba(0, 0, 0, 0.28));
+
+}
+.light #hwrapper h1, .light #bwrapper h1{
+   color: rgb(223,223,223);
+
+}
+.nav.light .searchbar{
+    border: 1px solid rgb(54, 54, 54);
+}
+.light h1{
+    color: rgb(54, 54, 54);
+}
+.light .toolbox div i{
+    color: rgb(54, 54, 54);
+}
+.light .toolbox div{
+    border: 2px solid rgb(54, 54, 54);
+}
+.light .pos{
+    /* background: rgb(54, 54, 54); */
+    color: rgb(54, 54, 54);
+    border: 2px solid rgb(54, 54, 54);
+}
+.light .pos.active{
+    background: rgb(54, 54, 54);
+    color: rgb(223, 223, 223);
+    border: 2px solid rgb(54, 54, 54);
+}
+.light .meaning{
+    color: rgb(22, 22, 22);
+}
+.light .meaning i{
+    color: rgb(22, 22, 22);
+}
+.light .example{
+    color: rgb(54, 54, 54);
+}
 .userpic{
     background-image: url(https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png);
     height: 4rem;

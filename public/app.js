@@ -403,6 +403,7 @@ const btn = document.querySelector(".darklight");
 btn.addEventListener("click", () => {
   document.querySelector("body").classList.toggle("light");
   document.querySelector("nav").classList.toggle("light");
+  document.querySelector(".menu").classList.toggle("light");
   document.querySelector(".headline").classList.toggle("light");
   if (document.querySelector("body").classList.contains("light")) {
     btn.querySelector("i").setAttribute("class", "fa-solid fa-moon");
