@@ -17,6 +17,7 @@ import {
   push,
   get, set, update
 } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+import { arr } from "./db.js";
 const firebaseConfig = {
   apiKey: "AIzaSyDuinZ2LIH8eXRUFHjdfJEXzm7oVQz7Ous",
   authDomain: "nextdictionary-47e38.firebaseapp.com",
@@ -393,6 +394,9 @@ function fetchWord(word) {
   let url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word;
   fetch(url).then((res) => res.json().then((result) => datacall(result, word)));
 }
+function fetchWordRandom() {
+  fetchWord(arr[Math.floor(Math.random()*arr.length)]);
+}
 
 function createelem(elem, cls) {
   var el = document.createElement("" + elem);
@@ -653,6 +657,20 @@ document.querySelectorAll(".menuitem").forEach((item) => {
       });
     } else {
       document.getElementById("bookmslide").classList.remove("active");
+      
+    }
+  });
+});
+document.querySelectorAll(".menuitem").forEach((item) => {
+  item.addEventListener("click", () => {
+    if (document.getElementById("trending").classList.contains("active")) {
+      document.getElementById("wordslide").classList.add("active");
+      console.clear();
+      document.getElementById("wordslide").innerHTML =
+        "";
+        fetchWordRandom();
+    } else {
+      document.getElementById("wordslide").classList.remove("active");
       
     }
   });

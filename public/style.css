@@ -41,7 +41,7 @@ i{
     right: 10%;
     gap: 2.5rem;
 }
-.history, .bookmarks{
+.history, .bookmarks,.trending{
     position: absolute;
     display: flex;
     bottom: 0;
@@ -54,7 +54,8 @@ i{
     background-color: rgba(54, 54, 54, 0);
 
 }
-.history,.bookmarks{
+
+.history,.bookmarks,.trending{
     justify-content: center;
     align-items: center;
 }
@@ -233,11 +234,11 @@ object-fit: cover;
     background-image: linear-gradient(to right, transparent, 40%, rgba(58, 58, 58, 0.5), 60%,  transparent);
 
 }
-.light #hwrapper, .light #bwrapper{
+.light #hwrapper, .light #bwrapper, .light #wwrapper{
     background: linear-gradient(to right, rgba(0, 0, 0, 0.4), 40%, rgba(0, 0, 0, 0.35), 60%,  rgba(0, 0, 0, 0.28));
 
 }
-.light #hwrapper h1, .light #bwrapper h1{
+.light #hwrapper h1, .light #bwrapper h1,.light #wwrapper h1{
    color: rgb(223,223,223);
 
 }
@@ -450,7 +451,7 @@ align-items: center;
 .headline.light h1{
     color: black;
 }
-#hwrapper, #bwrapper{
+#hwrapper, #bwrapper, #wwrapper{
     display: flex;
     padding: 3.5rem;
     flex-direction: column;
@@ -475,7 +476,7 @@ align-items: center;
 .historylistitem:hover{
     background: rgba(255, 255, 255, 0.158);
 }
-#hwrapper h1, #bwrapper h1{
+#hwrapper h1, #bwrapper h1, #wwrapper h1{
     font-size: 3rem;
     margin-bottom: 3rem;
 }
@@ -547,7 +548,17 @@ body::-webkit-scrollbar-thumb{
     opacity: 0;
     border-radius: 5px;
 }
+#wwrapper::-webkit-scrollbar{
+    width: 10px;
+    position: absolute;
+    opacity: 0;
+    border-radius: 5px;
+}
 #hwrapper::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.158), rgba(255, 255, 255, 0.247));
+}
+#wwrapper::-webkit-scrollbar-thumb{
     border-radius: 5px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.158), rgba(255, 255, 255, 0.247));
 }
@@ -611,7 +622,7 @@ body::-webkit-scrollbar-thumb{
     .scrollable{
         height: 80vh;
     }
-    .history, .bookmarks{
+    .history, .bookmarks,.trending{
         height: 80vh;
     }
     .historylistitem i:nth-child(1){
@@ -672,7 +683,7 @@ body::-webkit-scrollbar-thumb{
             flex-direction: column;
             gap: 2rem;
     }
-    .history, .bookmarks{
+    .history, .bookmarks,.trending{
             height: 70vh;
             width: 80%;
             position: absolute;
@@ -685,7 +696,7 @@ body::-webkit-scrollbar-thumb{
             flex-direction: column;
             gap: 2rem;
     }
-    #hwrapper, #bwrapper{
+    #hwrapper, #bwrapper, #wwrapper{
         width: 100%;
     }
 }
