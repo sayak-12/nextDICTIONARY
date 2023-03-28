@@ -86,23 +86,24 @@ onAuthStateChanged(auth, (user) => {
           "<img src='" + url + "' alt=''>";
         const img = document.querySelector(".userpic");
         img.style.backgroundImage = "url(" + url + ")";
+        onValue(dbref(db, "accounts/" + user.uid + "/username"), (entry) => {
+          document.querySelector(".handle").innerHTML = "@" + entry._node.value_;
+          document.querySelector(".account").innerHTML +=
+            "<b>" + entry._node.value_ + "</b>";
+            if ((window.innerWidth)<=540) {
+              document.querySelector(".account").childNodes.forEach((item)=>{
+                if(item.nodeName === "B"){
+                  console.log(item.nodeName + " item deleted");
+                  document.querySelector(".account").removeChild(item);
+                };
+              })
+            }
+        });
       })
       .catch((error) => {
         console.log(error);
       });
-    onValue(dbref(db, "accounts/" + user.uid + "/username"), (entry) => {
-      document.querySelector(".handle").innerHTML = "@" + entry._node.value_;
-      document.querySelector(".account").innerHTML +=
-        "<b>" + entry._node.value_ + "</b>";
-        if ((window.innerWidth)<=540) {
-          document.querySelector(".account").childNodes.forEach((item)=>{
-            if(item.nodeName === "B"){
-              console.log(item.nodeName + " item deleted");
-              document.querySelector(".account").removeChild(item);
-            };
-          })
-        }
-    });
+    
   }
 });
 
