@@ -48,7 +48,6 @@ onAuthStateChanged(auth, (user) => {
       if ((window.innerWidth)<=540) {
         document.querySelector(".account").childNodes.forEach((item)=>{
           if(item.nodeName === "B"){
-            console.log(item.nodeName + " item deleted");
             document.querySelector(".account").removeChild(item);
           };
         })
@@ -661,6 +660,63 @@ document.querySelectorAll(".menuitem").forEach((item) => {
     }
   });
 });
+var word = "";
+document.querySelector(".search").addEventListener("input", (e)=>{
+  const query = e.target.value.toLowerCase();
+  const matchingWords = arr.filter((word) => {
+    return word.toLowerCase().startsWith(query);
+  });
+  var cont =document.querySelector('.autocont');
+  cont.innerHTML='';
+  if (matchingWords.length!=0) {
+    if (!document.querySelector(".autocont").classList.contains("active")) {
+      document.querySelector(".autocont").classList.add("active");
+    }
+    if (matchingWords.length >= 4) {
+      for (let index = 0; index < 4; index++) {
+        var x = document.createElement("div");
+        x.className = "autoc";
+        x.id = "auto" + index;
+        x.innerHTML = `<p>${matchingWords[index]}</p><i class='fa-solid fa-magnifying-glass'></i>`;
+        cont.appendChild(x);
+      }
+    }
+    else{
+      for (let index = 0; index < matchingWords.length; index++) {
+        var x = document.createElement("div");
+        x.className = "autoc";
+        x.id = "auto" + index;
+        x.innerHTML = `<p>${matchingWords[index]}</p><i class='fa-solid fa-magnifying-glass'></i>`;
+        cont.appendChild(x);
+      }
+    }
+    document.querySelectorAll(".autoc").forEach((item)=>{
+      item.addEventListener("click", ()=>{
+        fetchWord(item.querySelector("p").innerText)
+        if (document.querySelector(".autocont").classList.contains("active")) {
+          document.querySelector(".autocont").classList.remove("active");
+        }
+      })
+    })
+  }
+  else{
+    if (document.querySelector(".autocont").classList.contains("active")) {
+      document.querySelector(".autocont").classList.remove("active");
+    }
+  }
+  
+})
+
+
+
+document.querySelector(".search").addEventListener("focusout",()=>{
+  if (sbar.value==="") {
+    if (document.querySelector(".autocont").classList.contains("active")) {
+    document.querySelector(".autocont").classList.remove("active");
+  }
+  }
+  
+})
 document.querySelectorAll(".menuitem").forEach((item) => {
   item.addEventListener("click", () => {
     if (document.getElementById("trending").classList.contains("active")) {

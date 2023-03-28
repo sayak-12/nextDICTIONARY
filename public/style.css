@@ -91,6 +91,56 @@ i{
     border-radius: 2rem;
     border: 1px solid rgba(255, 255, 255, 0.623);
 }
+.autocont{
+    position: absolute;
+    height: max-content;
+    background-color: rgba(223, 223, 223, 0.527);
+    backdrop-filter: blur(15px);
+    width: 100%;
+    top: 110%;
+    z-index: 20;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.534);
+    border-radius: inherit;
+    opacity: 0;
+    pointer-events: none;
+}
+.autocont.active{
+    opacity: 1;
+    pointer-events: all;
+}
+.autoc{
+    position: relative;
+    height: 5rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+}
+.autoc::after{
+    content: '';
+    height: 2px;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.315), transparent);
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+.autoc p{
+    position: relative;
+    left: 2rem;
+    font-size: 2rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+.autoc:nth-child(1){
+    border-radius: 2rem 2rem 0 0;
+}
+.autoc:nth-child(4){
+    border-radius:  0 0 2rem 2rem;
+}
+.autoc:nth-child(4)::after{
+    background: transparent;
+
+}
 .searchbar i{
     position: absolute;
     right: 5%;
