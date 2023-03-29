@@ -680,6 +680,11 @@ document.querySelector(".search").addEventListener("input", (e)=>{
         x.innerHTML = `<p>${matchingWords[index]}</p><i class='fa-solid fa-magnifying-glass'></i>`;
         cont.appendChild(x);
       }
+      var y = document.createElement("div");
+        y.className = "autocnf";
+        y.id = "auto";
+        y.innerHTML = `<p>Search for : ${query}</p><i class='fa-solid fa-magnifying-glass'></i>`;
+        cont.appendChild(y);
     }
     else{
       for (let index = 0; index < matchingWords.length; index++) {
@@ -689,6 +694,11 @@ document.querySelector(".search").addEventListener("input", (e)=>{
         x.innerHTML = `<p>${matchingWords[index]}</p><i class='fa-solid fa-magnifying-glass'></i>`;
         cont.appendChild(x);
       }
+      var y = document.createElement("div");
+        y.className = "autocnf";
+        y.id = "auto";
+        y.innerHTML = `<p>Search for : ${query}</p><i class='fa-solid fa-magnifying-glass'></i>`;
+        cont.appendChild(y);
     }
     document.querySelectorAll(".autoc").forEach((item)=>{
       item.addEventListener("click", ()=>{
@@ -700,9 +710,17 @@ document.querySelector(".search").addEventListener("input", (e)=>{
     })
   }
   else{
-    if (document.querySelector(".autocont").classList.contains("active")) {
-      document.querySelector(".autocont").classList.remove("active");
-    }
+    var y = document.createElement("div");
+        y.className = "autocnf";
+        y.id = "auto";
+        y.innerHTML = `<p>Search for : ${query}</p><i class='fa-solid fa-magnifying-glass'></i>`;
+        cont.appendChild(y);
+        y.addEventListener("click", ()=>{
+          fetchWord(query)
+        if (document.querySelector(".autocont").classList.contains("active")) {
+          document.querySelector(".autocont").classList.remove("active");
+        }
+        })
   }
   
 })

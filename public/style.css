@@ -108,7 +108,7 @@ i{
     opacity: 1;
     pointer-events: all;
 }
-.autoc{
+.autoc, .autocnf{
     position: relative;
     height: 5rem;
     width: 100%;
@@ -124,7 +124,7 @@ i{
     position: absolute;
     bottom: 0;
 }
-.autoc p{
+.autoc p,.autocnf p{
     position: relative;
     left: 2rem;
     font-size: 2rem;
@@ -134,13 +134,10 @@ i{
 .autoc:nth-child(1){
     border-radius: 2rem 2rem 0 0;
 }
-.autoc:nth-child(4){
+.autocnf{
     border-radius:  0 0 2rem 2rem;
 }
-.autoc:nth-child(4)::after{
-    background: transparent;
 
-}
 .searchbar i{
     position: absolute;
     right: 5%;
